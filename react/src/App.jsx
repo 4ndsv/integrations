@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { CreateIntegration } from './CreateIntegration'
-import { BPMSelectList } from './BPMSelectList'
+import { SelectList } from './SelectList'
 
 function App() {
   const [selectData, setSelectData] = useState([])
@@ -10,7 +10,7 @@ function App() {
       <p/>
         <CreateIntegration props ={{setSelectData, setIntegrationMappingFields }} />
       <p/>
-        <BPMSelectList props = {{selectData, integrationMappingFields}} />
+        <SelectList props = {{selectData, integrationMappingFields}} />
     </>
   )
 }
