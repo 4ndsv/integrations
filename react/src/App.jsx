@@ -1,16 +1,22 @@
 import { useState } from 'react'
 import { CreateIntegration } from './CreateIntegration'
-import { SelectList } from './SelectList'
+import { SelectListField } from './SelectListField'
+import {TextField} from './TextField'
+import { TableField } from './TableField'
 
 function App() {
   const [selectData, setSelectData] = useState([])
-  const [integrationMappingFields, setIntegrationMappingFields] = useState([])
+  const [identifiers, setIdentifiers] = useState([])
   return (
     <>
       <p/>
-        <CreateIntegration props ={{setSelectData, setIntegrationMappingFields }} />
+        <CreateIntegration props ={{setSelectData, setIdentifiers }} />
       <p/>
-        <SelectList props = {{selectData, integrationMappingFields}} />
+        <SelectListField props = {{selectData, identifiers}} />
+      <p/>
+        <TextField props = {{selectData, identifiers}}/>
+      <p/>
+        <TableField props = {{selectData, identifiers}}/>
     </>
   )
 }

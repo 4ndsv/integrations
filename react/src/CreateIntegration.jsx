@@ -5,6 +5,8 @@ export function CreateIntegration({ props }) {
     const [response, setResponse] = useState([])
     const [jsonPath, setJsonPath] = useState([])
     const [mapFields, setMapFields] = useState([])
+    const [identifiers, setIdentifiers] = useState([])
+    const [identifiersHTML, setIdentifiersHTML] = useState([])
     const [url, setURL] = useState('')
 
     function handleSubmit(e) {
@@ -64,11 +66,63 @@ export function CreateIntegration({ props }) {
     }
 
     function doIntegration() {
-        if (mapFieldIsValid()) {
-            props.setSelectData(() => { return response })
-            props.setIntegrationMappingFields(() => { return mapFields })
-        }
+        // if (mapFieldIsValid()) {
+        //    props.setSelectData(() => { return response })
 
+        // setIdentifiers(document.getElementById("identifiers"))
+
+        console.log("Do")
+
+        props.setSelectData(null)
+
+        extractIdentifiers()
+        props.setSelectData(() => { return response })
+
+
+
+        //props.setIntegrationMappingFields(() => { return mapFields })
+        //}
+
+    }
+
+    function extractIdentifiers() {
+        let rowList = document.querySelectorAll("#identifiers .row")
+        let newIdentifierList = []
+
+        rowList.forEach((row) => {
+            let inputPair = row.querySelectorAll("input")
+            //todo - adicionar logica para verficar a inclusão de mapeamento sem identificador: o identificador recebe o mesmo nome do campo resposta
+            //todo - adicionar logica para verficar campos vazios
+            newIdentifierList.push(JSON.parse("{\"" + inputPair[1].value + "\":\"" + inputPair[0].value + "\"}"))
+        })
+
+        props.setIdentifiers(() => { return newIdentifierList })
+    }
+
+    function newIdentifier() {
+        setIdentifiersHTML(current => [...current,
+        <div key={new Date().getTime()} className='row'>
+            <p />
+            <div className='col-4'>
+                <input className='form-control'></input>
+            </div>
+            <div className='col-4'>
+                <input className='form-control'></input>
+            </div>
+            <div className='col-1'>
+                <button onClick={removeIdentifier} className='btn btn-danger btn-sm'>-</button>
+            </div>
+        </div>
+        ])
+    }
+
+    function identifiresChange() {
+        console.log("change")
+        setIdentifiers(() => { return document.getElementById("identifiers") })
+    }
+
+    function removeIdentifier(e) {
+        e.target.parentElement.parentElement.remove()
     }
 
     function request() {
@@ -96,7 +150,7 @@ export function CreateIntegration({ props }) {
                     <div className="row">
                         <div className="col-9">
                             <label htmlFor='url'>URL</label>
-                            <input onChange={urlChange} type="url" title="URL" defaultValue='' className="form-control" id="url" />
+                            <input onChange={urlChange} type="url" title="URL" className="form-control" id="url" />
                         </div>
                         <div className="col-3">
                             <label>HTTP Method</label>
@@ -119,8 +173,11 @@ export function CreateIntegration({ props }) {
                     </div>
                     <div className="row">
                         <div className="col-12">
-                            <label>Mapeamento</label>
-                            <textarea onChange={mapFieldChange} placeholder='integrationField => formField' className="form-control" />
+                            <label>Mapeamento <button onClick={newIdentifier} className='btn btn-secondary btn-sm'>+</button></label>
+                            <div id="identifiers">
+                                {identifiersHTML}
+                            </div>
+                            {/* <textarea onChange={mapFieldChange} placeholder='integrationField => formField' className="form-control" /> */}
                         </div>
                         <div className='col-12'>
                             <span>Nota: é obrigatorio o mapeamento para os identificadores 'key' e 'value'</span>
