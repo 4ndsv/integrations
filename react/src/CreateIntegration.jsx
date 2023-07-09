@@ -71,7 +71,6 @@ export function CreateIntegration({ props }) {
 
         // setIdentifiers(document.getElementById("identifiers"))
 
-        console.log("Do")
 
         props.setSelectData(null)
 

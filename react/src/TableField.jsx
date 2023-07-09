@@ -5,13 +5,13 @@ export function TableField({ props }) {
     const [isWorking, setIsWorking] = useState(false)
     const [options, setOptions] = useState()
 
-    useEffect(() => {
-        selectList.length > 1 ? setIsWorking(true) : setIsWorking(false)
-    }, [selectList])
+    // useEffect(() => {
+    //     selectList.length > 1 ? setIsWorking(true) : setIsWorking(false)
+    // }, [selectList])
 
-    useEffect(() => {
-        extractTable()
-    }, [props.selectData])
+    // useEffect(() => {
+    //     extractTable()
+    // }, [props.selectData])
 
     function extractTable(){
         try {
@@ -90,7 +90,7 @@ export function TableField({ props }) {
             <div className="card-body">
                 <h5 className="card-title">Campo Tabela <svg height="10" width="10" className={`${isWorking ? 'bg-success' : 'bg-body-secondary'} p-1 rounded-circle`} /></h5>
                 <div className='card-text'>
-                    <table class="table table-dark table-striped">
+                    <table className="table table-dark table-striped">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -114,7 +114,7 @@ export function TableField({ props }) {
                             </tr>
                             <tr>
                                 <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
+                                <td colSpan="2">Larry the Bird</td>
                                 <td>@twitter</td>
                             </tr>
                         </tbody>

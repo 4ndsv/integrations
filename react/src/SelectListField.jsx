@@ -10,6 +10,8 @@ export function SelectListField({ props }) {
 
     function extractSelectList(data, identifiers) {
         try {
+            if(identifiers.length>0 ){
+           
             let key = identifiers.filter(item => item["key"])[0].key
             let value = identifiers.filter(item => item["value"])[0].value
             let dataObj = JSON.parse(data)
@@ -20,17 +22,20 @@ export function SelectListField({ props }) {
 
                 // todo resolver problema com valores boleanos
 
-                if (item[key] == undefined || item[value] == undefined)
-                    return
-                options.push(<option key={++index} value={item[key]}>{item[value]}</option>)
+                if (item[key] != undefined && item[value] != undefined)
+                    options.push(<option key={++index} value={item[key]}>{item[value]}</option>)
             });
-            setOptions(options)
+            if (options.length > 0) {
+                setOptions(options)
+                setIsWorking(true)
+            }
+        }
         } catch (error) {
             setIsWorking(false)
             setOptions([])
             console.warn(error)
         } finally {
-             //setIsWorking( (options.length > 1))
+            //setIsWorking( (options.length > 1))
         }
 
     }
