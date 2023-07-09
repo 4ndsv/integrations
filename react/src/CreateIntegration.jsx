@@ -66,22 +66,11 @@ export function CreateIntegration({ props }) {
     }
 
     function doIntegration() {
-        // if (mapFieldIsValid()) {
-        //    props.setSelectData(() => { return response })
-
-        // setIdentifiers(document.getElementById("identifiers"))
-
 
         props.setSelectData(null)
 
         extractIdentifiers()
         props.setSelectData(() => { return response })
-
-
-
-        //props.setIntegrationMappingFields(() => { return mapFields })
-        //}
-
     }
 
     function extractIdentifiers() {
@@ -176,7 +165,6 @@ export function CreateIntegration({ props }) {
                             <div id="identifiers">
                                 {identifiersHTML}
                             </div>
-                            {/* <textarea onChange={mapFieldChange} placeholder='integrationField => formField' className="form-control" /> */}
                         </div>
                         <div className='col-12'>
                             <span>Nota: é obrigatorio o mapeamento para os identificadores 'key' e 'value'</span>
