@@ -9,35 +9,29 @@ export function SelectListField({ props }) {
     }, [props.selectData, props.identifiers])
 
     function extractSelectList(data, identifiers) {
+        let options = [<option defaultValue>Selecione...</option>]
         try {
-            if(identifiers.length>0 ){
-           
-            let key = identifiers.filter(item => item["key"])[0].key
-            let value = identifiers.filter(item => item["value"])[0].value
-            let dataObj = JSON.parse(data)
-            let options = []
-            let index = 0
+            if (identifiers.length > 0) {
 
-            dataObj.map((item) => {
+                let key = identifiers.filter(item => item["key"])[0].key
+                let value = identifiers.filter(item => item["value"])[0].value
+                let dataObj = JSON.parse(data)
+                let index = 0
 
-                // todo resolver problema com valores boleanos
-
-                if (item[key] != undefined && item[value] != undefined)
-                    options.push(<option key={++index} value={item[key]}>{item[value]}</option>)
-            });
-            if (options.length > 0) {
+                dataObj.map((item) => {
+                    // todo resolver problema com valores boleanos
+                    if (item[key] != undefined && item[value] != undefined)
+                        options.push(<option key={++index} value={item[key]}>{item[value]}</option>)
+                });
                 setOptions(options)
-                setIsWorking(true)
+
             }
-        }
         } catch (error) {
-            setIsWorking(false)
-            setOptions([])
+            setOptions(options)
             console.warn(error)
         } finally {
-            //setIsWorking( (options.length > 1))
+            setIsWorking(options.length > 1 ? true : false)
         }
-
     }
     return (
         <div className="card">
@@ -45,7 +39,6 @@ export function SelectListField({ props }) {
                 <h5 className="card-title">Campo de Seleção <svg height="10" width="10" className={`${isWorking ? 'bg-success' : 'bg-body-secondary'} p-1 rounded-circle`} /></h5>
                 <div className='card-text'>
                     <select className='form-control'>
-                        <option defaultValue>Selecione...</option>
                         {options}
                     </select>
                 </div>

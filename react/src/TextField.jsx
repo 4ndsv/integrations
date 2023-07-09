@@ -18,7 +18,7 @@ export function TextField({ props }) {
             return text
         }
         catch (error) {
-            console.warn(error)
+            console.warn("Erro ao extrair dado para campo texto: " + console.group(error))
         }
     }
     return (
@@ -26,7 +26,7 @@ export function TextField({ props }) {
             <div className="card-body">
                 <h5 className="card-title">Campo de Texto <svg height="10" width="10" className={`${isWorking ? 'bg-success' : 'bg-body-secondary'} p-1 rounded-circle`} /></h5>
                 <div className='card-text'>
-                    <input label className='form-control' defaultValue={text} />
+                    <input className='form-control' defaultValue={text} />
                 </div>
             </div>
         </div>
